@@ -10,4 +10,5 @@ public interface NotificationService {
     NotificationDtoOut add(NotificationDtoIn notificationDtoIn);
     List<NotificationDtoOut> find(FindDtoIn findDto);
     List<NotificationDtoOut> getNotifications();
+    NotificationDtoOut getById(Long id);
 }

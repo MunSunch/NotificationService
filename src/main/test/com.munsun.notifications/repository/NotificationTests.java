@@ -53,14 +53,18 @@ public class NotificationTests extends Container {
 
         notification = new Notification();
             notification.setStationPath(stationPathRepository.getReferenceById(id));
+
             notification.setLocomotiveSeries("ВЛ-80С");
             notification.setLocomotiveNumber(1122);
+
             notification.setTrainType("Грузовой");
             notification.setTrainNumber(5644);
             notification.setTrainAxes(244);
             notification.setTrainWeight(5500);
+            notification.setTrainUnits(65);
             notification.setTrainNumberTail("11122233");
             notification.setTrainNumberOncoming("44455666");
+
             notification.setPressRequired(1333);
             notification.setPressActual(1555);
             notification.setHandBrakesRequired(24);
@@ -70,11 +74,13 @@ public class NotificationTests extends Container {
             notification.setDensityBrakeNetworkFourth(77);
             notification.setDensityBrakeNetworkValue(0.5);
             notification.setOthersParameters(List.of(k100, v10));
+
             notification.setTimeLocomotiveTrailer(LocalTime.of(16, 0));
             notification.setTimeCheckIntegrity(LocalTime.of(16,10));
             notification.setTimeChargeNetwork(LocalTime.of(16, 5));
             notification.setTimeFinish(LocalTime.of(16, 40));
             notification.setTimeCreate(LocalDateTime.now());
+
             notification.setSurnameHeadEmployee("Исимбаев");
             notification.setSurnameTailEmployee("Сунчаляев");
             notification.setSurnameMachinist("Царёв");

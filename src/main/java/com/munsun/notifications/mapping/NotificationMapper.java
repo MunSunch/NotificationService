@@ -6,14 +6,17 @@ import com.munsun.notifications.dto.out.NotificationDtoOut;
 import com.munsun.notifications.dto.out.ParametersDtoOut;
 import com.munsun.notifications.dto.out.TrainDtoOut;
 import com.munsun.notifications.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class NotificationMapper {
     public Notification map(NotificationDtoIn dtoIn) {
+        log.info("mapping NotificationDtoIn in Notification");
         var notification = new Notification();
             notification.setTrainNumber(dtoIn.numberTrain());
             notification.setLocomotiveNumber(dtoIn.locomotive().number().intValue());
@@ -33,14 +36,10 @@ public class NotificationMapper {
             notification.setSurnameTailEmployee(dtoIn.surnameTailEmployee());
             notification.setSurnameHeadEmployee(dtoIn.surnameHeadEmployee());
 
-            var clock = dtoIn.timeLocomotiveTrailer().split(":");
-            notification.setTimeLocomotiveTrailer(LocalTime.of(Integer.parseInt(clock[0]), Integer.parseInt(clock[1])));
-            clock = dtoIn.timeChargingBrakeNetwork().split(":");
-            notification.setTimeChargeNetwork(LocalTime.of(Integer.parseInt(clock[0]), Integer.parseInt(clock[1])));
-            clock = dtoIn.timeIntegrityCheck().split(":");
-            notification.setTimeCheckIntegrity(LocalTime.of(Integer.parseInt(clock[0]), Integer.parseInt(clock[1])));
-            clock = dtoIn.timeFinish().split(":");
-            notification.setTimeFinish(LocalTime.of(Integer.parseInt(clock[0]), Integer.parseInt(clock[1])));
+            notification.setTimeLocomotiveTrailer(dtoIn.timeLocomotiveTrailer());
+            notification.setTimeCheckIntegrity(dtoIn.timeIntegrityCheck());
+            notification.setTimeChargeNetwork(dtoIn.timeChargingBrakeNetwork());
+            notification.setTimeFinish(dtoIn.timeFinish());
 
             notification.setTrainNumber(dtoIn.numberTrain());
             notification.setTrainNumberTail(dtoIn.train().tailWagonNumber());
@@ -68,7 +67,9 @@ public class NotificationMapper {
     }
 
     public NotificationDtoOut map(Notification notification) {
+        log.info("mapping Notification in NotificationDtoOut");
         return new NotificationDtoOut(
+                notification.getId(),
                 notification.getStationPath().getStation().getName(),
                 Long.parseLong(notification.getStationPath().getStationCode().getNumber()),
                 notification.getStationPath().getPath().longValue(),
@@ -101,7 +102,10 @@ public class NotificationMapper {
                 notification.getTimeChargeNetwork().toString(),
                 notification.getTimeCheckIntegrity().toString(),
                 notification.getTimeFinish().toString(),
-                notification.getTimeCreate().toString()
+                notification.getTimeCreate().toString(),
+                notification.getSurnameTailEmployee(),
+                notification.getSurnameHeadEmployee(),
+                notification.getSurnameMachinist()
         );
     }
 }

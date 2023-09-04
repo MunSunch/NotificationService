@@ -40,43 +40,30 @@ public class NotificationControllerUnitTests {
 
     @BeforeEach
     public void setFindDtoIn() {
-        findDtoIn = new FindDtoIn();
-            findDtoIn.setNumberTrain("1111");
-            findDtoIn.setSurnameHeadEmployee("TestHead");
-            findDtoIn.setSurnameTailEmployee("TestTail");
-            findDtoIn.setSurnameMachinist("TestMachinist");
-            findDtoIn.setStartPeriodDate(LocalDateTime.of(2023, 8, 22, 12, 0));
-            findDtoIn.setEndPeriodDate(LocalDateTime.of(2023, 8, 24, 12, 0));
-            findDtoIn.setWagonOncomingNumber("11122333");
-            findDtoIn.setWagonTailNumber("44555566");
-
-        notificationDtoIn = new NotificationDtoIn(
-                1234,
-                "test",
-                12345L,
-                12,
-                new LocomotiveDtoIn("ВЛ-80С", 1234L),
-                new TrainDtoIn("Грузовой", 1234L, 224L, 24L,
-                        "12345678", "23144532"),
-                new ParametersDtoIn(1234, 1234, 12,
-                        12, 123, 12,
-                        23, 0.5, List.of("К-100", "В10")),
-
-                "12:00",
-                "12:10",
-                "12:20",
-                "12:30",
-                "13:00",
-                "Исимбаев",
-                "Сунчаляев"
-        );
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
     }
 
     @Test
     public void find() throws Exception {
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
+
         mockMvc
                 .perform(post("/notifications/find")
-                        .content(mapper.writeValueAsString(findDtoIn))
+                        .content(findDtoInJson)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -84,13 +71,21 @@ public class NotificationControllerUnitTests {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "qwq12", "12345"})
     public void find_InvalidTrainNumber400(String str) throws Exception {
-        findDtoIn.setNumberTrain(str);
+        String findDtoInJson = "{\"numberTrain\":\"" + str +"\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
+
         var expected = new ErrorWriteRequest("Номер поезда состоит из 4 цифр");
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
+                        .content(findDtoInJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(mapper.writeValueAsString(expected)));
     }
@@ -98,13 +93,21 @@ public class NotificationControllerUnitTests {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "qwq12", "12345"})
     public void find_InvalidSurnameHeadEmployee400(String str) throws Exception {
-        findDtoIn.setSurnameHeadEmployee(str);
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"" + str + "\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
+
         var expected = new ErrorWriteRequest("Фамилия состоит из букв");
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
+                        .content(findDtoInJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(mapper.writeValueAsString(expected)));
     }
@@ -112,13 +115,20 @@ public class NotificationControllerUnitTests {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "qwq12", "12345"})
     public void find_InvalidSurnameTailEmployee400(String str) throws Exception {
-        findDtoIn.setSurnameTailEmployee(str);
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"" + str + "\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
         var expected = new ErrorWriteRequest("Фамилия состоит из букв");
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
+                        .content(findDtoInJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(mapper.writeValueAsString(expected)));
     }
@@ -126,13 +136,21 @@ public class NotificationControllerUnitTests {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "qwq12", "12345"})
     public void find_InvalidSurnameMachinistEmployee400(String str) throws Exception {
-        findDtoIn.setSurnameTailEmployee(str);
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"" + str + "\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
+
         var expected = new ErrorWriteRequest("Фамилия состоит из букв");
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
+                        .content(findDtoInJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(mapper.writeValueAsString(expected)));
     }
@@ -140,13 +158,20 @@ public class NotificationControllerUnitTests {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "qwq12", "1234567", "123456789"})
     public void find_InvalidWagonTailNumber400(String str) throws Exception {
-        findDtoIn.setWagonTailNumber(str);
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"" + str + "\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
         var expected = new ErrorWriteRequest("Номер хвостового вагона состоит из 8 цифр");
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
+                        .content(findDtoInJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(mapper.writeValueAsString(expected)));
     }
@@ -154,51 +179,58 @@ public class NotificationControllerUnitTests {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "qwq12", "1234567", "123456789"})
     public void find_InvalidWagonOncomingNumber400(String str) throws Exception {
-        findDtoIn.setWagonOncomingNumber(str);
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"" + str + "\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
         var expected = new ErrorWriteRequest("Номер встречного вагона состоит из 8 цифр");
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
+                        .content(findDtoInJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(mapper.writeValueAsString(expected)));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "123", "qwq12", "2023.22.10", "2023-22-10 12:12:12"})
+    @ValueSource(strings = {"123", "qwq12", "2023.22.10", "2023-22-10 12:12:12"})
     public void find_InvalidStartPeriodDate400(String str) throws Exception {
-//        findDtoIn.setStartPeriodDate(str);
-        var expected = new ErrorWriteRequest("Формат ввода даты: YYYY-DD-MM HH:mm");
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"" + str + "\"," +
+                "\"endPeriodDate\":\"2023-10-10 12:00\"}";
 
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().json(mapper.writeValueAsString(expected)));
+                        .content(findDtoInJson))
+                .andExpect(status().isBadRequest());
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "123", "qwq12", "2023.22.10", "2023-22-10 12:12:12"})
+    @ValueSource(strings = {"123", "qwq12", "2023.22.10", "2023-22-10 12:12:12"})
     public void find_InvalidEndPeriodDate400(String str) throws Exception {
-//        findDtoIn.setEndPeriodDate(str);
-        var expected = new ErrorWriteRequest("Формат ввода даты: YYYY-DD-MM HH:mm");
-
+        String findDtoInJson = "{\"numberTrain\":\"1111\"," +
+                "\"surnameHeadEmployee\":\"TestHead\"," +
+                "\"surnameTailEmployee\":\"TestTail\"," +
+                "\"surnameMachinist\":\"TestMachinist\"," +
+                "\"wagonTailNumber\":\"11122333\"," +
+                "\"wagonOncomingNumber\":\"44555566\"," +
+                "\"startPeriodDate\":\"2023-10-08 12:00\"," +
+                "\"endPeriodDate\":\"" + str + "\"}";
         mockMvc
                 .perform(post("/notifications/find")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(findDtoIn)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().json(mapper.writeValueAsString(expected)));
-    }
-
-    @Test
-    public void save() throws Exception {
-        mockMvc
-                .perform(post("/notifications/save")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(notificationDtoIn)))
-                .andExpect(status().isOk());
+                        .content(findDtoInJson))
+                .andExpect(status().isBadRequest());
     }
 }

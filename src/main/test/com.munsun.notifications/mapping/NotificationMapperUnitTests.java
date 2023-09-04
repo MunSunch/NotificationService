@@ -36,10 +36,10 @@ public class NotificationMapperUnitTests {
                 new ParametersDtoIn(1234, 1234, 12,
                         12, 123, 12,
                         23, 0.5, List.of("К-100", "В10")),
-                "12:00",
-                "12:10",
-                "12:20",
-                "12:30",
+                LocalTime.of(12, 0),
+                LocalTime.of(12, 10),
+                LocalTime.of(12, 20),
+                LocalTime.of(12, 30),
                 "Исимбаев",
                 "Сунчаляев",
                 "Машинист"
@@ -97,6 +97,7 @@ public class NotificationMapperUnitTests {
     @Test
     public void notification2notificationDtoOut() {
         var notification = new Notification();
+            notification.setId(1);
             notification.setTrainNumber(1234);
             var temp = new StationPath();
             temp.setPath(12);
@@ -143,6 +144,7 @@ public class NotificationMapperUnitTests {
             notification.setOthersParameters(List.of(temp1, temp2));
 
         var expected = new NotificationDtoOut(
+                1,
                 "test",
                 12345L,
                 12L,
@@ -154,7 +156,10 @@ public class NotificationMapperUnitTests {
                 "12:10",
                 "12:20",
                 "12:30",
-                "2023-10-08T19:40"
+                "2023-10-08T19:40",
+                "Сунчаляев",
+                "Исимбаев",
+                "Машинист"
         );
 
         var actual = mapper.map(notification);

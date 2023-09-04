@@ -1,6 +1,7 @@
 package com.munsun.notifications.dto.in;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,12 +33,8 @@ public class FindDtoIn {
     private String wagonOncomingNumber;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$",
-    message = "Формат ввода даты: YYYY-DD-MM HH:mm")
     private LocalDateTime startPeriodDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$",
-            message = "Формат ввода даты: YYYY-DD-MM HH:mm")
     private LocalDateTime endPeriodDate;
 }

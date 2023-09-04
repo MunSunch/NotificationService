@@ -12,6 +12,6 @@ public class StationCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="number")
+    @Column(name="number", unique = true)
     private String number;
 }

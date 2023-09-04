@@ -1,5 +1,6 @@
 package com.munsun.notifications.dto.in;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Positive;
 
 import java.util.List;
@@ -29,5 +30,6 @@ public record ParametersDtoIn(
         @Positive(message = "Величина утечки-это положительное число")
         Double brakeNetworkValue,
 
+        @JsonProperty
         List<String> other
 ) {}

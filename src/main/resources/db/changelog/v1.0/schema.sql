@@ -3,13 +3,13 @@ GO
 
 create table if not exists wn45.stations (
      id serial primary key,
-     name text not null unique
+     name text not null
 );
 GO
 
 create table if not exists wn45.station_codes (
       id serial primary key,
-      number text not null unique
+      number text not null
 );
 GO
 
@@ -49,7 +49,7 @@ create table if not exists wn45.notifications (
     hand_brakes_actual integer not null,
     density_brake_network_second integer not null,
     density_brake_network_fourth integer,
-    density_brake_network_value integer not null,
+    density_brake_network_value real not null,
 
     time_locomotive_trailer time,
     time_charge_network time,
@@ -65,7 +65,7 @@ GO
 
 create table if not exists wn45.others_parameters (
       id serial primary key,
-      name text not null unique
+      name text not null
 );
 GO
 
