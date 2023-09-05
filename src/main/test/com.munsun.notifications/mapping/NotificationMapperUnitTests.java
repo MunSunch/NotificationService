@@ -31,7 +31,7 @@ public class NotificationMapperUnitTests {
                 12345L,
                 12,
                 new LocomotiveDtoIn("ВЛ-80С", 1234L),
-                new TrainDtoIn("Грузовой", 1234L, 224L, 24L,
+                new TrainDtoIn("грузовой", 1234L, 224L, 24L,
                         "12345678", "23144532"),
                 new ParametersDtoIn(1234, 1234, 12,
                         12, 123, 12,
@@ -68,7 +68,7 @@ public class NotificationMapperUnitTests {
             expected.setLocomotiveSeries("ВЛ-80С");
             expected.setLocomotiveNumber(1234);
 
-            expected.setTrainType("Грузовой");
+            expected.setTrainType("грузовой");
             expected.setTrainWeight(1234);
             expected.setTrainAxes(224);
             expected.setTrainUnits(24);
@@ -122,7 +122,7 @@ public class NotificationMapperUnitTests {
             notification.setLocomotiveSeries("ВЛ-80С");
             notification.setLocomotiveNumber(1234);
 
-            notification.setTrainType("Грузовой");
+            notification.setTrainType("грузовой");
             notification.setTrainWeight(1234);
             notification.setTrainAxes(224);
             notification.setTrainUnits(24);
@@ -149,7 +149,7 @@ public class NotificationMapperUnitTests {
                 12345L,
                 12L,
                 new LocomotiveDtoOut("ВЛ-80С", 1234),
-                new TrainDtoOut("Грузовой", 1234L, 224L, 24L, "12345678", "23144532"),
+                new TrainDtoOut(1234L, "грузовой", 1234L, 224L, 24L, "12345678", "23144532"),
                 new ParametersDtoOut(1234, 1234, 12, 12, 123, 12,23,0.5,
                         List.of("К-100", "В10")),
                 "12:00",

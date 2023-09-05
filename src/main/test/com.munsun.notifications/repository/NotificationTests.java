@@ -57,7 +57,7 @@ public class NotificationTests extends Container {
             notification.setLocomotiveSeries("ВЛ-80С");
             notification.setLocomotiveNumber(1122);
 
-            notification.setTrainType("Грузовой");
+            notification.setTrainType("грузовой");
             notification.setTrainNumber(5644);
             notification.setTrainAxes(244);
             notification.setTrainWeight(5500);

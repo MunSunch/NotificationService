@@ -78,6 +78,7 @@ public class NotificationMapper {
                         notification.getLocomotiveNumber()
                 ),
                 new TrainDtoOut(
+                        notification.getTrainNumber().longValue(),
                         notification.getTrainType(),
                         notification.getTrainWeight().longValue(),
                         notification.getTrainAxes().longValue(),

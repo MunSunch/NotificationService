@@ -59,7 +59,7 @@ public class NotificationServiceIntegrationTests extends Container {
                 12345L,
                 12L,
                 new LocomotiveDtoOut("ВЛ-80С", 1234),
-                new TrainDtoOut("Грузовой", 1234L, 224L, 24L,
+                new TrainDtoOut(1234L, "Грузовой", 1234L, 224L, 24L,
                         "12345678", "23144532"),
                 new ParametersDtoOut(1234, 1234, 12,
                         12, 123, 12,

@@ -13,6 +13,7 @@ import com.munsun.notifications.service.NotificationService;
 import com.munsun.notifications.service.impl.spec.NotificationSpecification;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,26 +84,26 @@ public class NotificationServiceImpl implements NotificationService {
         var startDate = dtoIn.getStartPeriodDate();
         var endDate = dtoIn.getEndPeriodDate();
         checkSurnamesNotification(surnameHead, surnameTail, surnameMachinist);
-        if(tailWagon!=null && tailWagon.equals(oncomingWagon)) {
+        if(!ObjectUtils.isEmpty(tailWagon) && !ObjectUtils.isEmpty(oncomingWagon) && tailWagon.equals(oncomingWagon)) {
             log.error("check failed: tail wagon number={} is equals on coming wagon number={}", tailWagon, oncomingWagon);
             throw new NotificationEqualsFieldException("Tail wagon's number wagon is equals on coming wagon's number!");
         }
-        if(startDate!=null && endDate!=null && startDate.isAfter(endDate)) {
+        if(!ObjectUtils.isEmpty(startDate) && !ObjectUtils.isEmpty(endDate) && startDate.isAfter(endDate)) {
             log.error("check failed: start date={} after end date={}", startDate, endDate);
             throw new NotificationAfterDateException("Start date after end date!");
         }
     }
 
     private void checkSurnamesNotification(String surnameHead, String surnameTail,String surnameMachinist) {
-        if(surnameHead!=null && surnameHead.equals(surnameMachinist)) {
+        if(!ObjectUtils.isEmpty(surnameHead) && !ObjectUtils.isEmpty(surnameMachinist) && surnameHead.equals(surnameMachinist)) {
             log.error("check failed: Surname head={} is equals surname machinist={}", surnameHead, surnameMachinist);
             throw new NotificationEqualsFieldException("Head employee is equals Machinist!");
         }
-        if(surnameTail!=null && surnameTail.equals(surnameMachinist)) {
+        if(!ObjectUtils.isEmpty(surnameTail) && !ObjectUtils.isEmpty(surnameMachinist) && surnameTail.equals(surnameMachinist)) {
             log.error("check failed: Surname tail={} is equals surname machinist={}", surnameTail, surnameMachinist);
             throw new NotificationEqualsFieldException("Tail employee is equals Machinist!");
         }
-        if(surnameHead!=null && surnameHead.equals(surnameTail)) {
+        if(!ObjectUtils.isEmpty(surnameHead) && !ObjectUtils.isEmpty(surnameTail) && surnameHead.equals(surnameTail)) {
             log.error("check failed: Surname head={} is equals surname tail={}", surnameHead, surnameTail);
             throw new NotificationEqualsFieldException("Head employee is equals tail employee!");
         }
@@ -111,9 +112,10 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public List<NotificationDtoOut> getNotifications() {
         log.info("get all notifications");
-        return repository.findAll().stream()
+        var list =  repository.findAll().stream()
                 .map(x -> mapper.map(x))
                 .collect(Collectors.toList());
+        return list;
     }
 
     @Transactional
