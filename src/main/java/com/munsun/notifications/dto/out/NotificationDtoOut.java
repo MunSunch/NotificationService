@@ -2,9 +2,8 @@ package com.munsun.notifications.dto.out;
 
 public record NotificationDtoOut(
         Integer id,
-        String station,
-        Long stationCode,
-        Long pathOnStation,
+        Integer stationCode,
+        Integer pathOnStation,
         LocomotiveDtoOut locomotive,
         TrainDtoOut train,
         ParametersDtoOut parameters,
@@ -15,7 +14,7 @@ public record NotificationDtoOut(
         String timeFinish,
         String timeCreate,
 
-        String surnameTailEmployee,
-        String surnameHeadEmployee,
-        String surnameMachinist
+        EmployeeDtoOut tailEmployee,
+        EmployeeDtoOut headEmployee,
+        EmployeeDtoOut machinist
 ) {}

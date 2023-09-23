@@ -15,14 +15,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlerRestControllerAdvice {
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    public ResponseEntity<ErrorWriteRequest> errorWriteRequestHandler(MethodArgumentNotValidException e) {
-        String message = e.getBindingResult().getAllErrors().stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.joining());
-        log.info("error validation; message={}", message);
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorWriteRequest(message));
-    }
+//    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+//    public ResponseEntity<ErrorWriteRequest> errorWriteRequestHandler(MethodArgumentNotValidException e) {
+////        String message = e.getBindingResult().getAllErrors().stream()
+////                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+////                .collect(Collectors.joining());
+//////        log.info("error validation; message={}", message);
+////        return ResponseEntity
+////                .status(HttpStatus.BAD_REQUEST)
+////                .body(new ErrorWriteRequest(message));
+//    }
 }

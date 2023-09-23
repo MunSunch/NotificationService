@@ -1,35 +1,18 @@
-create schema if not exists wn45;
+create schema wn45;
 GO
 
-create table if not exists wn45.stations (
-     id serial primary key,
-     name text not null
-);
-GO
-
-create table if not exists wn45.station_codes (
-      id serial primary key,
-      number text not null
-);
-GO
-
-create table if not exists wn45.stations_paths (
-   id serial primary key,
-   stations_id integer not null
-        constraint fk_stations_paths_stations
-        references wn45.stations(id),
-   station_codes_id integer not null
-        constraint fk_stations_paths_station_codes
-        references wn45.station_codes(id),
-   path integer not null
-);
-GO
-
-create table if not exists wn45.notifications (
+create table wn45.employees (
     id serial primary key,
-    stations_paths_id integer not null
-        constraint fk_notifications_stations_paths
-        references wn45.stations_paths(id),
+    name text not null,
+    surname text not null,
+    patronymic text not null
+);
+GO
+
+create table wn45.notifications (
+    id serial primary key,
+    station_code integer not null,
+    path integer not null,
 
     locomotive_series text not null,
     locomotive_number integer not null,
@@ -54,28 +37,34 @@ create table if not exists wn45.notifications (
     time_locomotive_trailer time,
     time_charge_network time,
     time_check_integrity time not null,
-    time_finish time not null,
-    surname_tail_employee text,
-    surname_head_employee text not null,
-    surname_machinist text not null,
+    datetime_finish timestamp not null,
+
+    tail_employee_id integer not null
+        constraint fk_notifications_head_employees
+            references wn45.employees(id),
+    head_employee_id integer not null
+        constraint fk_notifications_tail_employees
+            references wn45.employees(id),
+    machinist_id integer not null
+        constraint fk_notifications_machinist_employees
+            references wn45.employees(id),
 
     time_create timestamp not null
 );
 GO
 
-create table if not exists wn45.others_parameters (
-      id serial primary key,
-      name text not null
+create table wn45.others_parameters (
+    id serial primary key,
+    name text not null unique
 );
 GO
 
-create table if not exists wn45.notifications_others_parameters (
-      id serial primary key,
-      notification_id integer not null
-        constraint fk_notifications_notifications_others_parameters
-        references wn45.notifications(id),
-      others_parameters_id integer not null
-        constraint fk_notifications_others_parameters_others_parameters
-        references wn45.others_parameters(id)
+create table wn45.notifications_others (
+    id serial primary key,
+    notification_id integer not null
+       constraint fk_notifications_others_notifications
+           references wn45.notifications(id),
+    others_parameters_id integer not null
+       constraint fk_notifications_others_others
+           references wn45.others_parameters(id)
 );
-GO

@@ -5,17 +5,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public record NotificationDtoIn(
-        @Positive(message = "Номер поезда - это положительное число")
-        Integer numberTrain,
-
-        @Pattern(regexp = "^\\s+$", message = "Название станции состоит из букв")
-        String station,
-
-        @Pattern(regexp = "^\\d{5}$", message = "Код станции состоит из 5 цифр")
-        Long stationCode,
+        Integer stationCode,
 
         @Positive(message = "Номер пути - это положительное число")
         Integer pathOnStation,
@@ -30,27 +24,22 @@ public record NotificationDtoIn(
         ParametersDtoIn parameters,
 
         @JsonFormat(pattern = "HH:mm")
-//        @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Формат ввода времени: HH:mm")
         LocalTime timeLocomotiveTrailer,
 
         @JsonFormat(pattern = "HH:mm")
-//        @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Формат ввода времени: HH:mm")
         LocalTime timeChargingBrakeNetwork,
 
         @JsonFormat(pattern = "HH:mm")
-//        @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Формат ввода времени: HH:mm")
         LocalTime timeIntegrityCheck,
 
-        @JsonFormat(pattern = "HH:mm")
-//        @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Формат ввода времени: HH:mm")
-        LocalTime timeFinish,
+        LocalDateTime dateTimeFinish,
 
-        @Pattern(regexp = "^\\D$", message = "Фамилия состоит из букв")
-        String surnameHeadEmployee,
+        @Valid
+        EmployeeDtoIn headEmployee,
 
-        @Pattern(regexp = "^\\D$", message = "Фамилия состоит из букв")
-        String surnameTailEmployee,
+        @Valid
+        EmployeeDtoIn tailEmployee,
 
-        @Pattern(regexp = "^\\D$", message = "Фамилия состоит из букв")
-        String surnameMachinist
+        @Valid
+        EmployeeDtoIn machinist
 ) {}

@@ -7,6 +7,7 @@ import com.munsun.notifications.service.NotificationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -19,20 +20,25 @@ public class NotificationRestController {
     private NotificationService service;
 
     @PostMapping("/save")
-    public NotificationDtoOut save(@RequestBody NotificationDtoIn notificationDtoIn) {
-        log.info("POST /notifications/save");
+    public NotificationDtoOut save(@RequestBody @Valid NotificationDtoIn notificationDtoIn) {
+//        log.info("POST /notifications/save");
         return service.add(notificationDtoIn);
     }
 
     @PostMapping("/find")
-    public List<NotificationDtoOut> find(@RequestBody @Valid FindDtoIn findDto) {
-        log.info("GET /notifications/find");
-        return service.find(findDto);
+    public List<NotificationDtoOut> find(@RequestBody @Valid FindDtoIn findDto,
+                                         @RequestParam Integer page,
+                                         @RequestParam Integer size)
+    {
+//        log.info("GET /notifications/find");
+        return service.find(findDto, PageRequest.of(page, size));
     }
 
-    @GetMapping("/get/all")
-    public List<NotificationDtoOut> getAll() {
-        log.info("GET /notifications/get/all");
-        return service.getNotifications();
+    @GetMapping
+    public List<NotificationDtoOut> getAll(@RequestParam Integer page,
+                                           @RequestParam Integer size)
+    {
+//        log.info("GET /notifications/get/all");
+        return service.getNotifications(page, size);
     }
 }

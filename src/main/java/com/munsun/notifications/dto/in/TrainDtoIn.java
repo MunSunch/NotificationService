@@ -5,17 +5,20 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 public record TrainDtoIn(
-        @Pattern(regexp = "^\\w+$")
+        @Positive(message = "Номер поезда - это положительное число")
+        Integer numberTrain,
+
+        @Pattern(regexp = "^[А-Яа-я]+$")
         String type,
 
         @Positive(message = "Вес-это положительное число")
-        Long weight,
+        Integer weight,
 
         @Positive(message = "Кол-во осей-это положительное число")
-        Long axes,
+        Integer axes,
 
         @Positive(message = "Кол-во единиц-это положительное число")
-        Long units,
+        Integer units,
 
         @Pattern(regexp = "^\\d{8}$")
         @JsonProperty("tail")

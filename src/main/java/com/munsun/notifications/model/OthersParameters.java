@@ -1,10 +1,13 @@
 package com.munsun.notifications.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(of="id")
 @Entity
 @Table(name = "others_parameters", schema = "wn45")
 public class OthersParameters {
