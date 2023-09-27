@@ -13,13 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Slf4j
 @Component
 public class NotificationMapperImpl implements NotificationMapper {
     private EmployeeMapper employeeMapper;
 
     public Notification map(NotificationDtoIn dto) {
-        log.info("mapping NotificationDtoIn in Notification");
         var notification = new Notification();
             notification.setStation(new StationEmbeddable(dto.stationCode(), dto.pathOnStation()));
             notification.setTimes(new TimeEmbeddable(dto.timeLocomotiveTrailer(), dto.timeChargingBrakeNetwork(),
@@ -53,7 +51,6 @@ public class NotificationMapperImpl implements NotificationMapper {
     }
 
     public NotificationDtoOut map(Notification notification) {
-        log.info("mapping Notification in NotificationDtoOut");
         return new NotificationDtoOut(
                 notification.getId(),
                 notification.getStation().getCodeStation(),

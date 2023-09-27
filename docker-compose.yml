@@ -4,10 +4,10 @@ services:
     container_name: REST_APP
     build:
       context: ./
-#    ports:
-#      - '8080:9999'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://DATABASE/data
+    ports:
+      - '9999:9999'
     networks:
       - backend
       - global
@@ -25,12 +25,12 @@ services:
       - backend
 
   front:
+    container_name: FRONTEND
     image: 'nginx'
     ports:
-      - '8080:8080'
+      - '8080:80'
     volumes:
-      -
-      -
+      - ${PWD}/src/main/resources/static:/usr/share/nginx/html
     depends_on:
       - rest
     networks:

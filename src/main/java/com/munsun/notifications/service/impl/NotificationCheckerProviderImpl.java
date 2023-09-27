@@ -5,6 +5,7 @@ import com.munsun.notifications.dto.in.FindDtoIn;
 import com.munsun.notifications.dto.in.NotificationDtoIn;
 import com.munsun.notifications.exceptions.*;
 import com.munsun.notifications.service.NotificationCheckerProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 

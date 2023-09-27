@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Slf4j
 @AllArgsConstructor
 @CrossOrigin
 @RestController
@@ -21,7 +20,6 @@ public class NotificationRestController {
 
     @PostMapping("/save")
     public NotificationDtoOut save(@RequestBody @Valid NotificationDtoIn notificationDtoIn) throws Exception {
-//        log.info("POST /notifications/save");
         return service.add(notificationDtoIn);
     }
 
@@ -29,7 +27,6 @@ public class NotificationRestController {
     public List<NotificationDtoOut> find(@RequestBody @Valid FindDtoIn findDto,
                                          @RequestParam Integer page,
                                          @RequestParam Integer size) throws Exception {
-//        log.info("GET /notifications/find");
         return service.find(findDto, PageRequest.of(page, size));
     }
 
@@ -37,7 +34,6 @@ public class NotificationRestController {
     public List<NotificationDtoOut> getAll(@RequestParam Integer page,
                                            @RequestParam Integer size)
     {
-//        log.info("GET /notifications/get/all");
         return service.getNotifications(page, size);
     }
 }

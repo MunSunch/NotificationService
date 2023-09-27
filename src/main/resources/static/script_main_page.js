@@ -12,7 +12,7 @@ function handleErrors(response) {
 }
 
 fetch("http://localhost:9999/notifications/all"+params(page, size), {
-    mode: 'cors',    
+    mode: 'cors',
     headers: {
         'Content-type': 'application/json',
     }

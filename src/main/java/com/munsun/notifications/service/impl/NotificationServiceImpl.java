@@ -27,7 +27,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @AllArgsConstructor
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -73,7 +72,6 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<NotificationDtoOut> find(FindDtoIn findDto, Pageable pageable) throws Exception {
-        log.info("find ...");
         checker.checkFindDto(findDto);
         return repository.findAll(NotificationSpecification.get(findDto), pageable)
                 .stream()

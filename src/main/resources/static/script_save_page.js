@@ -60,6 +60,7 @@ form?.addEventListener('submit', (event)=>{
     }
 
     fetch("http://localhost:9999/notifications/save", {
+        mode: 'cors',
         method: 'POST',
         body: JSON.stringify(notificationDtoIn),
         headers: {
