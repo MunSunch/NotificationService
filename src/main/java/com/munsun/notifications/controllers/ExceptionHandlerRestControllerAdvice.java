@@ -1,6 +1,7 @@
 package com.munsun.notifications.controllers;
 
 import com.munsun.notifications.dto.out.ErrorWriteRequest;
+import com.munsun.notifications.exceptions.NotificationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -15,14 +16,20 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlerRestControllerAdvice {
-//    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-//    public ResponseEntity<ErrorWriteRequest> errorWriteRequestHandler(MethodArgumentNotValidException e) {
-////        String message = e.getBindingResult().getAllErrors().stream()
-////                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-////                .collect(Collectors.joining());
-//////        log.info("error validation; message={}", message);
-////        return ResponseEntity
-////                .status(HttpStatus.BAD_REQUEST)
-////                .body(new ErrorWriteRequest(message));
-//    }
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    public ResponseEntity<ErrorWriteRequest> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        String message = e.getBindingResult().getAllErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorWriteRequest(message));
+    }
+
+    @ExceptionHandler(value = NotificationException.class)
+    public ResponseEntity<ErrorWriteRequest> notificationExceptionHandler(NotificationException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorWriteRequest(e.getMessage()));
+    }
 }

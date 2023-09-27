@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <title>Сохранение справки</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="container text-center">
+            <form action="/" method="post" id="my_form" class="form-floating">
+                <div class="row top-buffer">
+                    <div class="col">
+                        <h2>Станция</h2>
+                        <div class="notification_station_code form-floating">
+                            <input type="text" name="stationCode" pattern="^\d{5}$" class="form-control"
+                                placeholder="Код станции" required>
+                            <label for="stationCode">Код станции</label>
+                        </div>
+
+                        <div class="notification_station_path form-floating">
+                            <input type="number" name="pathOnStation" class="form-control" placeholder="Путь станции">
+                            <label for="pathOnStation">Номер пути</label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <h2>Время</h2>
+                        <div class="notification_time">
+                            <div class="notification_time_locomotive_trailer form-floating">
+                                <input type="time" name="timeLocomotiveTrailer" class="form-control"
+                                    placeholder="Время прицепки">
+                                <label for="timeLocomotiveTrailer">Время прицепки</label>
+                            </div>
+
+                            <div class="notification_time_charging_brake_network form-floating">
+                                <input type="time" name="timeChargingBrakeNetwork" class="form-control"
+                                    placeholder="Время зарядки">
+                                <label for="timeChargingBrakeNetwork">Время полной зарядки</label>
+                            </div>
+
+                            <div class="notification_time_check_integrity form-floating">
+                                <input type="time" name="timeIntegrityCheck" class="form-control"
+                                    placeholder="Время проверки целостности" required>
+                                <label for="timeIntegrityCheck">Время проверки целостности</label>
+                            </div>
+
+                            <div class="notification_time_finish form-floating">
+                                <input type="datetime-local" name="timeFinish" class="form-control" placeholder="Время окончания"
+                                    required>
+                                <label for="timeFinish">Время окончания</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <h2>Локомотив</h2>
+                        <div class="notification_locomotive_info">
+                            <div class="notification_locomotive_series form-floating">
+                                <input type="text" name="locomotive_series" class="form-control"
+                                    placeholder="Серия локомотива" required>
+                                <label for="locomotive_series">Серия локомотива</label>
+                            </div>
+
+                            <div class="notification_locomotive_number form-floating">
+                                <input type="number" name="locomotive_number" class="form-control"
+                                    placeholder="Номер локомотива" required>
+                                <label for="locomotive_number">Номер локомотива</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-md-auto justify-content-md-center top-buffer">
+                    <h2 class="mb-3 mt-3">Поезд</h2>
+
+                    <div class="notification_train_info">
+                        <div class="notification_train_info_type form-floating">
+                            <select name="train_type" class="form-select" required>
+                                <option value="грузовой">грузовой</option>
+                                <option value="пассажирский">пассажирский</option>
+                                <option value="специальный">специальный</option>
+                                <option value="грузопассажирский">грузопассажирский</option>
+                            </select>
+                            <label for="train_type">Тип поезда</label>
+                        </div>
+
+                        <div class="notification_train_number form-floating">
+                            <input type="number" name="train_number" class="form-control" placeholder="Номер поезда"
+                                required>
+                            <label for="train_number">Номер поезда</label>
+                        </div>
+
+                        <div class="notification_train_info_weight form-floating">
+                            <input type="number" name="train_weight" class="form-control" placeholder="Вес поезда"
+                                required>
+                            <label for="train_weight">Вес поезда</label>
+                        </div>
+
+                        <div class="notification_train_info_axes form-floating">
+                            <input type="number" name="train_axes" class="form-control" placeholder="Количество осей"
+                                required>
+                            <label for="train_axes">Кол-во осей</label>
+                        </div>
+
+                        <div class="notification_train_info_units form-floating">
+                            <input type="number" name="train_units" class="form-control" placeholder="Количество единиц"
+                                required>
+                            <label for="train_units">Кол-во единиц</label>
+                        </div>
+
+                        <div class="notification_train_info_tail form-floating">
+                            <input type="text" name="train_tail" pattern="^\d{8}$" class="form-control"
+                                placeholder="12345678" required>
+                            <label for="train_tail">Номер хвостового вагона</label>
+                        </div>
+
+                        <div class="notification_train_info_oncoming form-floating">
+                            <input type="text" name="train_oncoming" pattern="^\d{8}$" class="form-control"
+                                placeholder="12345678" required>
+                            <label for="train_oncoming">Номер встречного вагона</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row top-buffer">
+                    <h2 class="mb-3 mt-3">Показатели</h2>
+                    <div class="notification_indicators">
+                        <div class="notification_indicators_press_required form-floating">
+                            <input type="number" name="indicators_pressRequired" class="form-control"
+                                placeholder="Требуемое нажатие" required>
+                            <label for="indicators_pressRequired">Требуемое нажатие</label>
+                        </div>
+
+                        <div class="notification_indicators_press_actual form-floating">
+                            <input type="number" name="indicators_pressActual" class="form-control"
+                                placeholder="Фактическое нажатие" required>
+                            <label for="indicators_pressActual">Фактическое нажатие</label>
+                        </div>
+
+                        <div class="notification_indicators_min_press form-floating">
+                            <input type="number" name="indicators_minPress" class="form-control"
+                                placeholder="Наименьшее нажатие" required>
+                            <label for="indicators_minPress">Наименьшее нажатие</label>
+                        </div>
+
+                        <div class="notification_indicators_hand_brakes_required form-floating">
+                            <input type="number" name="indicators_handBrakesRequired" class="form-control"
+                                placeholder="Требуемое кол-во ручных тормозов" required>
+                            <label for="indicators_handBrakesRequired">Требуемое кол-во ручных тормозов</label>
+                        </div>
+
+                        <div class="notification_indicators_hand_brakes_actual form-floating">
+                            <input type="number" name="indicators_handBrakesActual" class="form-control"
+                                placeholder="Фактическое кол-во ручных тормозов" required>
+                            <label for="indicators_handBrakesActual">Фактическое кол-во ручных тормозов</label>
+                        </div>
+
+                        <div class="notification_indicators_brake_network_second form-floating">
+                            <input type="number" name="indicators_brakeNetworkWithSecond" class="form-control"
+                                placeholder="Плотность тормозной сети при 2 положении" required>
+                            <label for="indicators_brakeNetworkWithSecond">Плотность тормозной сети при 2
+                                положении</label>
+                        </div>
+
+                        <div class="notification_indicators_brake_network_fourth form-floating">
+                            <input type="number" name="indicators_brakeNetworkWithFourth" class="form-control"
+                                placeholder="Плотность тормозной сети при 4 положении" required>
+                            <label for="indicators_brakeNetworkWithFourth">Плотность тормозной сети при 4
+                                положении</label>
+                        </div>
+
+                        <div class="notification_indicators_brake_network_value form-floating">
+                            <input type="text" name="indicators_brakeNetworkValue" pattern="^\d+.\d{1}$"
+                                class="form-control" placeholder="Величина утечки">
+                            <label for="indicators_brakeNetworkValue">Величина утечки</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row top-buffer">
+                    <h2 class="mb-3 mt-3">Исполнители</h2>
+                    <div class="col">
+                        <label for="notification_executors_head">Головной ОРВ</label>
+                        <div class="notification_executors_head">
+                            <div class="notification_executors_head form-floating">
+                                <input type="text" name="notification_executors_head_surname" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Фамилия">
+                                <label for="notification_executors_head_surname">Фамилия</label>
+                            </div>
+
+                            <div class="notification_executors_tail form-floating">
+                                <input type="text" name="notification_executors_head_name" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Имя">
+                                <label for="notification_executors_head_name">Имя</label>
+                            </div>
+
+                            <div class="notification_executors_machinist form-floating">
+                                <input type="text" name="notification_executors_head_patronymic" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Отчество">
+                                <label for="notification_executors_head_patronymic">Отчество</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="notification_executors_tail">Хвостовой ОРВ</label>
+                        <div class="notification_executors_tail">
+                            <div class="notification_executors_head form-floating">
+                                <input type="text" name="notification_executors_tail_surname" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Фамилия">
+                                <label for="notification_executors_tail_surname">Фамилия</label>
+                            </div>
+
+                            <div class="notification_executors_tail form-floating">
+                                <input type="text" name="notification_executors_tail_name" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Имя">
+                                <label for="notification_executors_tail_name">Имя</label>
+                            </div>
+
+                            <div class="notification_executors_machinist form-floating">
+                                <input type="text" name="notification_executors_tail_patronymic" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Отчество">
+                                <label for="notification_executors_tail_patronymic">Отчество</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="notification_executors_machinist">Машинист</label>
+                        <div class="notification_executors_machinist">
+                            <div class="notification_executors_head form-floating">
+                                <input type="text" name="notification_executors_machinist_surname" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Фамилия">
+                                <label for="notification_executors_machinist_surname">Фамилия</label>
+                            </div>
+
+                            <div class="notification_executors_tail form-floating">
+                                <input type="text" name="notification_executors_machinist_name" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Имя">
+                                <label for="notification_executors_machinist_name">Имя</label>
+                            </div>
+
+                            <div class="notification_executors_machinist form-floating">
+                                <input type="text" name="notification_executors_machinist_patronymic" pattern="^[А-Яа-я]+$"
+                                    class="form-control" placeholder="Отчество">
+                                <label for="notification_executors_machinist_patronymic">Отчество</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row top-buffer">
+                    <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                    <a href="index.html" class="btn btn-outline-secondary">Вернуться на главную</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script_save_page.js"></script>
+</body>
+
+</html>

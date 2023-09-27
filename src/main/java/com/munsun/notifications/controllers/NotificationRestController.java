@@ -20,7 +20,7 @@ public class NotificationRestController {
     private NotificationService service;
 
     @PostMapping("/save")
-    public NotificationDtoOut save(@RequestBody @Valid NotificationDtoIn notificationDtoIn) {
+    public NotificationDtoOut save(@RequestBody @Valid NotificationDtoIn notificationDtoIn) throws Exception {
 //        log.info("POST /notifications/save");
         return service.add(notificationDtoIn);
     }
@@ -28,13 +28,12 @@ public class NotificationRestController {
     @PostMapping("/find")
     public List<NotificationDtoOut> find(@RequestBody @Valid FindDtoIn findDto,
                                          @RequestParam Integer page,
-                                         @RequestParam Integer size)
-    {
+                                         @RequestParam Integer size) throws Exception {
 //        log.info("GET /notifications/find");
         return service.find(findDto, PageRequest.of(page, size));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<NotificationDtoOut> getAll(@RequestParam Integer page,
                                            @RequestParam Integer size)
     {

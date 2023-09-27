@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Справки</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="notifications_add_new">
+            <a href="save_page.html" class="btn btn-outline-primary" style="display: block;">Добавить</a>
+        </div>
+        <h1 class="main_header">Справки</h1>
+        <hr>
+        <div class="notification_find_container">
+            <form action="/" id="find_form">
+                <h2 class="text-center">Поиск по полям</h2>
+
+                <div class="container text-center form-group">
+                    <div class="row top-buffer">
+                        <div class="find_head_train_number col-md-auto">
+                            <label for="find_number_train_input">Номер поезда</label>
+                            <input type="text" class="form-control" pattern="^\d{4}$" name="find_number_train_input"
+                                placeholder="1234">
+                        </div>
+                
+                        <div class="col-md-auto find_number_wagon_tail">
+                            <label for="find_number_wagon_tail_input">Номер хвостового вагона</label>
+                            <input type="text" class="form-control" pattern="^\d{8}$"
+                                name="find_number_wagon_tail_input" placeholder="12345678">
+                        </div>
+                        <div class="col-md-auto find_number_wagon_oncoming">
+                            <label for="find_number_wagon_oncoming_input">Номер встречного вагона</label>
+                            <input type="text" class="form-control" pattern="^\d{8}$"
+                                name="find_number_wagon_oncoming_input" placeholder="12345678">
+                        </div>
+
+                        <div class="col-md-auto find_start_date">
+                            <label for="find_start_date_input">Начальная дата</label>
+                            <input type="datetime-local" class="form-control" name="find_start_date_input"
+                                placeholder="Начальная дата">
+                        </div>
+
+                        <div class="col-md-auto find_end_date">
+                            <label for="find_end_date_input">Дата окончания</label>
+                            <input type="datetime-local" class="form-control" name="find_end_date_input"
+                                placeholder="Дата окончания">
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer">
+                        <div class="col">
+                            <label for="find_head_employee_input">Головной ОРВ</label>
+                            <div class="find_tail_employee_head row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_head_employee_input_surname" placeholder="Фамилия">
+                            </div>
+
+                            <div class="find_tail_employee_tail row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_head_employee_input_name" placeholder="Имя">
+                            </div>
+
+                            <div class="find_machinist row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_head_input_patronymic" placeholder="Отчество">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label for="find_head_employee_input">Хвостовой ОРВ</label>
+                            <div class="find_tail_employee_head row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_tail_employee_input_surname" placeholder="Фамилия">
+                            </div>
+
+                            <div class="find_tail_employee_tail row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_tail_employee_input_name" placeholder="Имя">
+                            </div>
+
+                            <div class="find_machinist row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_tail_input_patronymic" placeholder="Отчество">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label for="find_head_employee_input">Машинист</label>
+                            <div class="find_tail_employee_head row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_machinist_input_surname" placeholder="Фамилия">
+                            </div>
+
+                            <div class="find_tail_employee_tail row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_machinist_input_name" placeholder="Имя">
+                            </div>
+
+                            <div class="find_machinist row-md-auto">
+                                <input type="text" class="form-control" pattern="^[А-Яа-я]+$"
+                                    name="find_machinist_input_patronymic" placeholder="Отчество">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer">
+                        <button type="submit" class="btn btn-outline-primary">Поиск</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+        </div>
+        <div class="table_container">
+            <table class="table table-hover table-bordered" id="notifications_table">
+                <thead class="notifications_table_headers">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Код станции</th>
+                        <th scope="col">Путь</th>
+                        <th scope="col">Серия локомотива</th>
+                        <th scope="col">Номер локомотива</th>
+                        <th scope="col">Номер поезда</th>
+                        <th scope="col">Тип поезда</th>
+                        <th scope="col">Вес поезда</th>
+                        <th scope="col">Кол-во осей</th>
+                        <th scope="col">Кол-во единиц</th>
+                        <th scope="col">Хвост</th>
+                        <th scope="col">Голова</th>
+                        <th scope="col">Тр.нажатие</th>
+                        <th scope="col">Факт.нажатие</th>
+                        <th scope="col">Мин.нажатие</th>
+                        <th scope="col">Тр.ручные</th>
+                        <th scope="col">Факт.ручные</th>
+                        <th scope="col">Плотность 2 положении</th>
+                        <th scope="col">Плотность 4 положении</th>
+                        <th scope="col">Величина утечки</th>
+
+                        <th scope="col">Время прицепки</th>
+                        <th scope="col">Время зарядки</th>
+                        <th scope="col">Время продувки</th>
+                        <th scope="col">Время готовности</th>
+                        <th scope="col">Время создания</th>
+
+                        <th scope="col">Головной ОРВ</th>
+                        <th scope="col">Хвостовой ОРВ</th>
+                        <th scope="col">ТЧМ</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container_btn_page">
+            <button type="button" class="btn btn-primary" onclick="lastPage()">Пред.</button>
+            <button type="button" class="btn btn-primary" id="page">0</button>
+            <button type="button" class="btn btn-primary" onclick="nextPage()">След.</button>
+        </div>
+    </div>
+
+    <script src="script_main_page.js"></script>
+</body>
+
+</html>

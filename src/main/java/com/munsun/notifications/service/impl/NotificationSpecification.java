@@ -11,7 +11,9 @@ import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NotificationSpecification {
@@ -19,7 +21,7 @@ public class NotificationSpecification {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if(!ObjectUtils.isEmpty(dto.getNumberTrain()))
-                predicates.add(criteriaBuilder.equal(root.get(Notification_.TRAIN).get(TrainEmdeddable_.TRAIN_NUMBER), dto.getNumberTrain()));
+                predicates.add(criteriaBuilder.equal(root.<String>get(Notification_.TRAIN).get(TrainEmdeddable_.TRAIN_NUMBER), dto.getNumberTrain()));
 
             if(!ObjectUtils.isEmpty(dto.getWagonOncomingNumber()))
                 predicates.add(criteriaBuilder.equal(root.get(Notification_.TRAIN).get(TrainEmdeddable_.TRAIN_NUMBER_ONCOMING), dto.getWagonOncomingNumber()));
@@ -27,11 +29,13 @@ public class NotificationSpecification {
             if(!ObjectUtils.isEmpty(dto.getWagonTailNumber()))
                 predicates.add(criteriaBuilder.equal(root.get(Notification_.TRAIN).get(TrainEmdeddable_.TRAIN_NUMBER_TAIL), dto.getWagonTailNumber()));
 
+
             if(!ObjectUtils.isEmpty(dto.getStartPeriodDate()))
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(Notification_.TIMES).get(TimeEmbeddable_.DATETIME_FINISH), dto.getStartPeriodDate()));
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.<LocalDateTime>get(Notification_.TIMES).get(TimeEmbeddable_.DATETIME_FINISH), dto.getStartPeriodDate()));
 
             if(!ObjectUtils.isEmpty(dto.getEndPeriodDate()))
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(Notification_.TIMES).get(TimeEmbeddable_.DATETIME_FINISH), dto.getEndPeriodDate()));
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.<LocalDateTime>get(Notification_.TIMES).get(TimeEmbeddable_.DATETIME_FINISH), dto.getEndPeriodDate()));
+
 
             if(!ObjectUtils.isEmpty(dto.getHeadEmployee().getName()))
                 predicates.add(criteriaBuilder.equal(root.get(Notification_.EMPLOYEES).get(EmployeesEmbeddable_.HEAD_EMPLOYEE).get(Employee_.NAME), dto.getHeadEmployee().getName()));

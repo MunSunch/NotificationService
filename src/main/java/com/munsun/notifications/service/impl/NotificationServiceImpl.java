@@ -4,6 +4,7 @@ import com.munsun.notifications.dto.in.EmployeeDtoIn;
 import com.munsun.notifications.dto.in.FindDtoIn;
 import com.munsun.notifications.dto.in.NotificationDtoIn;
 import com.munsun.notifications.dto.out.NotificationDtoOut;
+import com.munsun.notifications.exceptions.NotificationEmployeeException;
 import com.munsun.notifications.exceptions.NotificationNotFoundException;
 import com.munsun.notifications.mapping.EmployeeMapper;
 import com.munsun.notifications.mapping.impl.NotificationMapperImpl;
@@ -40,7 +41,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Transactional
     @Override
-    public NotificationDtoOut add(NotificationDtoIn dto) {
+    public NotificationDtoOut add(NotificationDtoIn dto) throws Exception {
         checker.checkNotification(dto);
         var newNotification = mapper.map(dto);
         newNotification.setEmployees(new EmployeesEmbeddable(addEmployee(dto.headEmployee()), addEmployee(dto.tailEmployee()), addEmployee(dto.machinist())));
@@ -71,7 +72,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public List<NotificationDtoOut> find(FindDtoIn findDto, Pageable pageable) {
+    public List<NotificationDtoOut> find(FindDtoIn findDto, Pageable pageable) throws Exception {
         log.info("find ...");
         checker.checkFindDto(findDto);
         return repository.findAll(NotificationSpecification.get(findDto), pageable)
@@ -82,13 +83,14 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<NotificationDtoOut> getNotifications(Integer page, Integer size) {
-        return repository.findAll(PageRequest.of(page, size)).stream()
+        return repository.findAll(PageRequest.of(page, size))
+                .stream()
                 .map(mapper::map)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public NotificationDtoOut getById(Integer id) {
+    public NotificationDtoOut getById(Integer id) throws NotificationNotFoundException {
         return mapper.map(repository.findById(id)
                 .orElseThrow(() -> new NotificationNotFoundException(id)));
     }

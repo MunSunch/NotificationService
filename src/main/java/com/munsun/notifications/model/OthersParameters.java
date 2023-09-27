@@ -5,9 +5,7 @@ import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of="id")
+@Data
 @Entity
 @Table(name = "others_parameters", schema = "wn45")
 public class OthersParameters {

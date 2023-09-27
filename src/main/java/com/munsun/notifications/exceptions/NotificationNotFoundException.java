@@ -1,7 +1,7 @@
 package com.munsun.notifications.exceptions;
 
-public class NotificationNotFoundException extends RuntimeException {
+public class NotificationNotFoundException extends NotificationException {
     public NotificationNotFoundException(Integer id) {
-        super("Notification not found; id="+id);
+        super("Справка с id="+id+" не найдена");
     }
 }

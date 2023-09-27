@@ -1,0 +1,41 @@
+version: '3'
+services:
+  rest:
+    container_name: REST_APP
+    build:
+      context: ./
+#    ports:
+#      - '8080:9999'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://DATABASE/data
+    networks:
+      - backend
+      - global
+    depends_on:
+      - postgres
+
+  postgres:
+    image: 'postgres'
+    container_name: DATABASE
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=data
+    networks:
+      - backend
+
+  front:
+    image: 'nginx'
+    ports:
+      - '8080:8080'
+    volumes:
+      -
+      -
+    depends_on:
+      - rest
+    networks:
+      - global
+
+networks:
+  backend:
+  global:

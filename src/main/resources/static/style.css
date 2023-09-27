@@ -1,0 +1,53 @@
+#my_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow:0 0 9px black;
+    padding: 3%;
+}
+
+#find_form {
+    padding: 3%;
+    box-shadow:0 0 9px black;
+}
+
+.main {
+    margin: 3% auto;
+    width: 85%;
+}
+
+.main_header {
+    text-align: center;
+}
+
+.notifications_add_new {
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.table_container {
+    margin: 0 auto;
+    position: relative;
+}
+
+.table_container table {
+    display: inline-block;
+	vertical-align: top;
+	max-width: 100%;
+	overflow-x: auto;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+    height: 250px;
+}
+
+
+.notifications_table_headers {
+    top:0;
+    position: sticky;
+}
+
+.top-buffer { margin-top:20px; }
+
+.container_btn_page {
+    text-align: center;
+}

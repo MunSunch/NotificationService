@@ -2,6 +2,8 @@ package com.munsun.notifications.dto.in;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public record NotificationDtoIn(
+        @Min(value = 10_000)
+        @Max(value = 99_999)
         Integer stationCode,
 
         @Positive(message = "Номер пути - это положительное число")

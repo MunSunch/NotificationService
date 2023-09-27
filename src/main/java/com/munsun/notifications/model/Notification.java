@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of = "id")
+@Data
 @Entity
 @Table(name = "notifications", schema = "wn45")
 public class Notification {
@@ -36,6 +34,7 @@ public class Notification {
     @Embedded
     private EmployeesEmbeddable employees;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="time_create")
     private LocalDateTime timeCreate;
 }

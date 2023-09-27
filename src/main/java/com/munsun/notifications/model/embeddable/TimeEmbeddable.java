@@ -14,15 +14,19 @@ import java.time.LocalTime;
 @Data
 @Embeddable
 public class TimeEmbeddable implements Serializable {
+    @Temporal(TemporalType.TIME)
     @Column(name="time_locomotive_trailer")
     private LocalTime timeLocomotiveTrailer;
 
+    @Temporal(TemporalType.TIME)
     @Column(name="time_charge_network")
     private LocalTime timeChargeNetwork;
 
+    @Temporal(TemporalType.TIME)
     @Column(name="time_check_integrity", nullable = false)
     private LocalTime timeCheckIntegrity;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="datetime_finish", nullable = false)
     private LocalDateTime datetimeFinish;
 }
