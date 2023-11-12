@@ -2,8 +2,7 @@ version: '3'
 services:
   rest:
     container_name: REST_APP
-    build:
-      context: ./
+    image: 'munirsunchalyaev/rest'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://DATABASE/data
     ports:
@@ -28,7 +27,7 @@ services:
     container_name: FRONTEND
     image: 'nginx'
     ports:
-      - '8080:80'
+      - '443:80'
     volumes:
       - ${PWD}/src/main/resources/static:/usr/share/nginx/html
     depends_on:

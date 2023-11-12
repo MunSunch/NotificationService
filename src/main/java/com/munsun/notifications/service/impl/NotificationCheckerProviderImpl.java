@@ -19,7 +19,7 @@ public class NotificationCheckerProviderImpl implements NotificationCheckerProvi
 
     @Override
     public void checkNotification(NotificationDtoIn dto) throws Exception{
-        checkTimesNotification(dto);
+        //checkTimesNotification(dto);
         checkParametersNotification(dto);
         checkExecutors(dto);
     }
